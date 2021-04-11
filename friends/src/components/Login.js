@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-
+import React, {  useState } from 'react'
+import { useHistory } from 'react-router-dom'
+import { axiosWithAuth } from '../utils/axiosWithAuth'
 const initialValues = { username: '', password: '' }
+
+
 
 const Login = () => {
     const [formValues , setFormValues] = useState(initialValues) 
-
+    let history =useHistory();
   
 
     const onChange = e => {
@@ -14,10 +16,11 @@ const Login = () => {
 
     const onSubmit = e => {
         e.preventDefault();
-        axios.post('http://localhost:5000/api/friends', formValues)
+        axiosWithAuth().post('/login', formValues)
         .then( res => {
             console.log(res)
             localStorage.setItem('token', res.data.payload)
+            history.push('/friends')
         } )
         .catch( err => console.log(err))
         
