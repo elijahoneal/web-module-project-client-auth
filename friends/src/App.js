@@ -7,13 +7,16 @@ import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
 
-
+const logout = () => {
+  localStorage.removeItem('token')
+}
   
   return (
     <Router>
       <div className="App">
         <ul>
           <li> <Link to='/login'>Login</Link> </li>
+          <li> <Link onClick={logout}>Logout</Link> </li>
           <li> <Link to='/friends'>Friends</Link> </li>
         </ul>
         <Switch>
